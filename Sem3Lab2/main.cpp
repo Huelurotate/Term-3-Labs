@@ -12,14 +12,24 @@ int main()
 	cout << "Enter string B: ";
 	cin >> B;
 
-	C = "FKSIS" + --A + ++B + "BSUIR";
-	cout << C++;
+	cout << "Enter string C: ";
+	cin >> C;
 
+	cout << "Slozhenie i vychtanie:" << endl;
+	cout << ("FKSIS" + --A + ++B - "BSUIR");
+	C += B-- - A;
+	cout << C;
+
+	cout << "Sravneniya:" << endl;
+	cout << (A == B) << endl;
+	cout << (A > C) << endl;
+	cout << (A >= B) << endl;
+	cout << (B < C) << endl;
+	cout << (B <= A) << endl;
+
+	cout << "() and []:" << endl;
 	cout << C[5];
 	cout << C(4, 6);
-
-	C += B-- + " 550502";
-	cout << C;
 
 	return 0;
 }

@@ -11,7 +11,10 @@ private:
 	
 public:
 	// Конструктор
-	explicit String(const char* str = nullptr);
+	explicit String(int len = 0);
+
+	// Коструктор с параметром строкой
+	explicit String(const char* str);
 
 	// Конструктор копирования
 	String(const String& other);
@@ -19,22 +22,29 @@ public:
 	// Деструктор
 	~String();
 
-	// Перегрузка операторов сложения
-	String operator+(const String& other) const;
-	String operator+(const char* other_str) const;
-	friend String operator+(const char* str_const, const String& str_object);
-
 	// Перегрузка операторов присваивания
 	String& operator=(const String& other);
 	String& operator+=(const String& other);
 	String& operator+=(const char* str_const);
+	String& operator-=(const String& other);
+	String& operator-=(const char* str_const);
+
+	// Перегрузка операторов сложения
+	String operator+(const String& other) const;
+	String operator+(const char* str_const) const;
+	friend String operator+(const char* str_const, const String& str_object);
+
+	// Перегрузка операторов вычитания
+	String operator-(const String& other) const;
+	String operator-(const char* str_const) const;
+	friend String operator-(const char* str_const, const String& str_object);
 
 	// Перегрузка операторов сравнения
-	inline bool operator==(const String& other) const;
-	inline bool operator>(const String& other) const;
-	inline bool operator>=(const String& other) const;
-	inline bool operator<(const String& other) const;
-	inline bool operator<=(const String& other) const;
+	bool operator==(const String& other) const;
+	bool operator>(const String& other) const;
+	bool operator>=(const String& other) const;
+	bool operator<(const String& other) const;
+	bool operator<=(const String& other) const;
 
 	// Перегрузка операторов инкремента и декремента
 	String& operator++();
@@ -48,7 +58,5 @@ public:
 
 	// Перегрузка операторов [] и ()
 	char operator[](int index);
-	String operator()(int start, int end_or_len);
+	String operator()(int start, int end);
 };
-
-//const char* operator+(const char* str_const1, const char* str_const2);

@@ -1,28 +1,31 @@
 #include <iostream>
-#include <string>
 #include "String.h"
 
-// Коструктор
+// Коструктор по умолчанию
+String::String(int len) : len(len)
+{
+	this->str = new char[this->len + 1];
+	this->str[len] = '\0';
+}
+
+// Коструктор с параметром строкой
 String::String(const char* str)
 {
-	if (str == nullptr) str = "";
 	this->len = strlen(str);
 	this->str = new char[this->len + 1];
 	strcpy(this->str, str);
 }
 
 // Коструктор копирования
-String::String(const String& other)
+String::String(const String& other) : String(other.len)
 {
-	this->len = other.len;
-	this->str = new char[other.len + 1];
 	strcpy(this->str, other.str);
 }
 
 // Деструктор
 String::~String()
 {
-	if(str != nullptr) delete[] str;
+	delete[] str;
 }
 
 // Перегрузка оператора присваивания
@@ -30,11 +33,10 @@ String& String::operator=(const String& other)
 {
 	if (this == &other) return *this;
 
-	char* temp = new char[other.len + 1];
-	strcpy(temp, other.str);
-
 	delete[] this->str;
-	this->str = temp;
+	this->str = new char[other.len + 1];
+
+	strcpy(this->str, other.str);
 	this->len = other.len;
 	
 	return *this;
@@ -43,44 +45,35 @@ String& String::operator=(const String& other)
 // Перегрузка оператора += (obj + obj)
 String& String::operator+=(const String& other)
 {
-	int new_len = this->len + other.len;
-	char* temp = new char[new_len + 1];
-
-	strcpy(temp, this->str);
-	strcat(temp, other.str);
-
-	delete[] this->str;
-
-	this->str = temp;
-	this->len = new_len;
-
+	*this = *this + other;
 	return *this;
 }
 
 // Перегрузка оператора += (obj + const)
 String& String::operator+=(const char* str_const)
 {
-	int new_len = this->len + strlen(str_const);
-	char* temp = new char[new_len + 1];
+	*this = *this + String(str_const);
+	return *this;
+}
 
-	strcpy(temp, this->str);
-	strcat(temp, str_const);
+// Перегрузка оператора -= (obj + obj)
+String& String::operator-=(const String& other)
+{
+	*this = *this - other;
+	return *this;
+}
 
-	delete[] this->str;
-
-	this->str = temp;
-	this->len = new_len;
-
+// Перегрузка оператора -= (obj + const)
+String& String::operator-=(const char* str_const)
+{
+	*this = *this - String(str_const);
 	return *this;
 }
 
 // Перегрузка оператора суммы (obj + obj)
 String String::operator+(const String& other) const
 {
-	String result_string;
-
-	result_string.len = this->len + other.len;
-	result_string.str = new char[result_string.len + 1];
+	String result_string = String(this->len + other.len);
 
 	strcpy(result_string.str, this->str);
 	strcat(result_string.str, other.str);
@@ -89,134 +82,147 @@ String String::operator+(const String& other) const
 }
 
 // Перегрузка оператора суммы (obj + const)
-String String::operator+(const char* other_str) const
+String String::operator+(const char* str_const) const
 {
-	String result_string;
-	
-	result_string.len = this->len + strlen(other_str);
-	result_string.str = new char[result_string.len + 1];
-
-	strcpy(result_string.str, this->str);
-	strcat(result_string.str, other_str);
-	
-	return result_string;
+	return *this + String(str_const);
 }
 
 // Перегрузка оператора суммы (const + obj)
 String operator+(const char* str_const, const String& str_object)
 {
-	String result_string;
+	return String(str_const) + str_object;
+}
 
-	result_string.len = strlen(str_const) + str_object.len;
-	result_string.str = new char[result_string.len + 1];
-
-	strcpy(result_string.str, str_const);
-	strcat(result_string.str, str_object.str);
+// Перегрузка оператора вычитания (obj + obj)
+String String::operator-(const String& other) const
+{
+	int min_len = (this->len < other.len) ? this->len : other.len;
+	String result_string(this->len + 1);
+	for (int i = 0; i < min_len; i++)
+	{
+		char ch1 = this->str[i];
+		char ch2 = other.str[i];
+		if (ch1 >= 'a' && ch1 <= 'z' && ch2 >= 'a' && ch2 <= 'z')
+		{
+			char new_ch = ch1 - ch2;
+			if (new_ch < 0) new_ch += 26;
+			result_string.str[i] = 'a' + new_ch;
+		}
+		else if (ch1 >= 'A' && ch1 <= 'Z' && ch2 >= 'A' && ch2 <= 'Z')
+		{
+			char new_ch = ch1 - ch2;
+			if (new_ch < 0) new_ch += 26;
+			result_string.str[i] = 'A' + new_ch;
+		}
+		else if (ch1 >= '0' && ch1 <= '9' && ch2 >= '0' && ch2 <= 'z9')
+		{
+			char new_ch = ch1 - ch2;
+			if (new_ch < 0) new_ch += 10;
+			result_string.str[i] = '0' + new_ch;
+		}
+		else result_string.str[i] = ch1;
+	}
+	
+	for (int i = min_len; i < this->len; i++)
+		result_string.str[i] = this->str[i];
+	result_string.str[this->len] = '\0';
 
 	return result_string;
 }
 
-// Перегрузка оператора суммы (const + const)
-//const char* operator+(const char* str_const1, const char* str_const2)
-//{
-//	String result_string(str_const1);
-//	result_string += str_const2;
-//	return result_string;
-//}
+// Перегрузка оператора вычитания (obj + const)
+String String::operator-(const char* str_const) const
+{
+	String result_string = *this - String(str_const);
+	return result_string;
+}
+
+// Перегрузка оператора вычитания (const + obj)
+String operator-(const char* str_const, const String& str_object)
+{
+	String result_string = String(str_const) - str_object;
+	return result_string;
+}
 
 // Перегрузки операторов сравнения
-inline bool String::operator>(const String& other) const
+bool String::operator>(const String& other) const
 {
-	return this->len > other.len;
+	return strcmp(this->str, other.str) > 0;
 }
 
-inline bool String::operator>=(const String& other) const
+bool String::operator>=(const String& other) const
 {
-	return this->len >= other.len;
+	return strcmp(this->str, other.str) >= 0;
 }
 
-inline bool String::operator<(const String& other) const
+bool String::operator<(const String& other) const
 {
-	return this->len < other.len;
+	return strcmp(this->str, other.str) < 0;
 }
 
-inline bool String::operator<=(const String& other) const
+bool String::operator<=(const String& other) const
 {
-	return this->len <= other.len;
+	return strcmp(this->str, other.str) <= 0;
 }
 
-inline bool String::operator==(const String& other) const
+bool String::operator==(const String& other) const
 {
-	return this->len == other.len;
+	return strcmp(this->str, other.str) == 0;
 }
 
 // Перегрузка оператора инкремента префиксный
 String& String::operator++()
 {
-	int new_len = this->len + 1;
-	char* temp = new char[new_len + 1];
-
-	strcpy(temp, this->str);
-	strcat(temp, " ");
-
-	delete[] this->str;
-
-	this->str = temp;
-	this->len = new_len;
-
+	for (int i = 0; i < this->len; i++)
+	{
+		char ch = this->str[i];
+		if (ch >= 'a' && ch <= 'z') this->str[i] = (ch == 'z') ? 'a' : ch + 1;
+		else if (ch >= 'A' && ch <= 'Z') this->str[i] = (ch == 'Z') ? 'A' : ch + 1;
+		else if (ch >= '0' && ch <= '9') this->str[i] = (ch == '9') ? '0' : ch + 1;
+	}
 	return *this;
 }
 
 // Перегрузка оператора инкремента постфиксный
 String String::operator++(int)
 {
-	String result_matrix(this->str);
-
-	int new_len = this->len + 1;
-	char* temp = new char[new_len + 1];
-
-	strcpy(temp, this->str);
-	strcat(temp, " ");
-
-	delete[] this->str;
-
-	this->str = temp;
-	this->len = new_len;
-
-	return result_matrix;
+	String result_string = ++(*this);
+	return result_string;
 }
 
 // Перегрузка оператора декремента префиксный
 String& String::operator--()
 {
-	this->str[this->len - 1] = '\0';
-	this->len--;
-
+	for (int i = 0; i < this->len; i++)
+	{
+		char ch = this->str[i];
+		if (ch >= 'a' && ch <= 'z') this->str[i] = (ch == 'a') ? 'z' : ch - 1;
+		else if (ch >= 'A' && ch <= 'Z') this->str[i] = (ch == 'A') ? 'Z' : ch - 1;
+		else if (ch >= '0' && ch <= '9') this->str[i] = (ch == '0') ? '9' : ch - 1;
+	}
 	return *this;
 }
 
 // Перегрузка оператора декремента постфиксный
 String String::operator--(int)
 {
-	String result_matrix(this->str);
-
-	this->str[this->len - 1] = '\0';
-	this->len--;
-
-	return result_matrix;
+	String result_string = --(*this);
+	return result_string;
 }
 
 // Перегрузка оператора ввода
 istream& operator>>(istream& input_stream, String& str_object)
 {
-	delete[] str_object.str;
-	char buffer[1000];
+	char buffer[1024];
+	input_stream.getline(buffer, 1024);
 
-	input_stream.getline(buffer, 1000);
-
-	str_object.str = new char[strlen(buffer) + 1];
-	strcpy(str_object.str, buffer);
-	str_object.len = strlen(str_object.str);
+	if (buffer)
+	{
+		delete[] str_object.str;
+		str_object.len = strlen(buffer);
+		str_object.str = new char[str_object.len + 1];
+		strcpy(str_object.str, buffer);
+	}
 
 	return input_stream;
 }
@@ -224,57 +230,31 @@ istream& operator>>(istream& input_stream, String& str_object)
 // Перегрузка оператора вывода
 ostream& operator<<(ostream& output_stream, const String& str_object)
 {
-	output_stream << str_object.str << endl;
+	if(str_object.str)
+		output_stream << str_object.str << endl;
 	return output_stream;
 }
 
 // Перегрузка оператора []
 char String::operator[](int index)
 {
-	if (index >= 0 && index <= this->len)
-		return this->str[index - 1];
+	if (index >= 0 && index < this->len)
+		return this->str[index];
+	return '\0';
 }
 
 // Перегрузка оператора ()
-String String::operator()(int start, int end_or_len)
+String String::operator()(int start, int end)
 {
-	if (start < 0 || start > this->len)
-		cerr << "Wrong starting index";
+	if (start < 0 || start > this->len) start = 0;
+	if (end < 0 || end > this->len) end = this->len - 1;
+	if (start > end) return String("");
 
-	int choice;
-	cout << "The second arg is the end or length?(1 - end, 0 - len): ";
-	cin >> choice;
+	int new_len = end - start + 1;
+	String result_string(new_len);
+	for (int i = 0; i < new_len; i++)
+		result_string.str[i] = this->str[start++];
+	result_string.str[new_len] = '\0';
 
-	if (choice == 1)
-	{
-		if (end_or_len < start || end_or_len > this->len)
-			cerr << "Wrong end index";
-
-		int new_len = end_or_len - start + 1;
-		char* temp = new char[new_len + 1];
-
-		int i = 0, j = 0;
-		for (i = start; i <= end_or_len; i++)
-			temp[j++] = this->str[i];
-		temp[new_len] = '\0';
-
-		String result_string(temp);
-		return result_string;
-	}
-	else if (choice == 0)
-	{
-		if (end_or_len < 0 || end_or_len > (this->len - (start + 1)))
-			cerr << "Wrong length";
-
-		char* temp = new char[end_or_len + 1];
-
-		int i = 0, j = 0;
-		for (i = start; j <= end_or_len; i++)
-			temp[j++] = this->str[i];
-		temp[end_or_len] = '\0';
-		
-		String result_string(temp);
-		return result_string;
-	}
-	else cerr << "Wrong choice";
+	return result_string;
 }
