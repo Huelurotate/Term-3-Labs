@@ -58,5 +58,5 @@ public:
 
 	// Перегрузка операторов [] и ()
 	char operator[](int index);
-	String operator()(int start, int end);
+	String operator()(int start, int end) const;
 };

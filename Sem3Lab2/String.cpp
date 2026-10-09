@@ -186,7 +186,8 @@ String& String::operator++()
 // Перегрузка оператора инкремента постфиксный
 String String::operator++(int)
 {
-	String result_string = ++(*this);
+	String result_string(*this);
+	++(*this);
 	return result_string;
 }
 
@@ -206,7 +207,8 @@ String& String::operator--()
 // Перегрузка оператора декремента постфиксный
 String String::operator--(int)
 {
-	String result_string = --(*this);
+	String result_string(*this);
+	--(*this);
 	return result_string;
 }
 
@@ -230,8 +232,7 @@ istream& operator>>(istream& input_stream, String& str_object)
 // Перегрузка оператора вывода
 ostream& operator<<(ostream& output_stream, const String& str_object)
 {
-	if(str_object.str)
-		output_stream << str_object.str << endl;
+	if(str_object.str) output_stream << str_object.str;
 	return output_stream;
 }
 
@@ -244,7 +245,7 @@ char String::operator[](int index)
 }
 
 // Перегрузка оператора ()
-String String::operator()(int start, int end)
+String String::operator()(int start, int end) const
 {
 	if (start < 0 || start > this->len) start = 0;
 	if (end < 0 || end > this->len) end = this->len - 1;
