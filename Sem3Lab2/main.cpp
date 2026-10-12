@@ -15,7 +15,7 @@ int main()
 	cout << "Enter string C: ";
 	cin >> C;
 
-	cout << "SLOZHENIE, \"FKSIS \" - A - B - \" BSUIR\":" << endl;
+	cout << "SLOZHENIE, \"FKSIS \" + A + B + \" BSUIR\":" << endl;
 	cout << ("FKSIS " + A + B + " BSUIR") << endl;
 	// cout << (A + B) << endl;
 
