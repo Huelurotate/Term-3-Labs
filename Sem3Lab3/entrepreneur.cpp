@@ -38,17 +38,21 @@ std::istream& operator>>(std::istream& stream_obj, Entrepreneur& entr_obj)
 	stream_obj >> static_cast<Human&>(entr_obj);
 
 	int arr_len;
-
 	std::string new_date;
 	int new_sum;
 
-	std::cin >> arr_len;
+	std::cout << "Enter array size: ";
+	stream_obj >> arr_len;
+
 	for (int i = 0; (i < arr_len) && i < entr_obj.MAX_ARR_SIZE; i++)
 	{
+		std::cout << "Enter date: ";
 		getline(stream_obj, new_date);
-		std::cin >> new_sum;
-		entr_obj.tr_data_arr[i].date = new_date;
-		entr_obj.tr_data_arr[i].sum = new_sum;
+		std::cout << "Enter sum: ";
+		stream_obj >> new_sum;
+		
+		entr_obj.set_date(i, new_date);
+		entr_obj.set_sum(i, new_sum);
 	}
 
 	return stream_obj;

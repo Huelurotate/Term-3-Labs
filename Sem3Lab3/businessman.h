@@ -6,16 +6,17 @@
 class Businessman : public Entrepreneur, Tourist
 {
 private:
-	std::string adresses_arr[MAX_ARR_SIZE];
+	std::string addresses_arr[MAX_ARR_SIZE];
 
 public:
 	explicit Businessman(std::string surname, int year, 
-		std::string date, int sum, std::string address);
+		std::string date, int sum, int pass_num, std::string h_c,
+		std::string dest, std::string address);
 	~Businessman();
 
-	std::string get_address_data(int index) const;
+	std::string get_address(int index) const;
 
-	void set_address_data(int index, std::string new_address);
+	void set_address(int index, std::string new_address);
 
 	void print() const override;
 

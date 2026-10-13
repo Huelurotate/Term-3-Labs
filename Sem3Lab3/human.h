@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
+
 
 class Human
 {
@@ -14,6 +16,7 @@ protected:
 
 public:
 	explicit Human(std::string surname, int year);
+	explicit Human();
 	virtual ~Human() = default;
 
 	std::string get_surname() const;
