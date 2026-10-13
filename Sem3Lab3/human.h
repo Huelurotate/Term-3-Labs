@@ -2,31 +2,30 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
 
 class Human
 {
 private:
-	string surname;
+	std::string surname;
 	int year;
 
 protected:
 	static constexpr int MAX_ARR_SIZE = 100;
 
 public:
-	Human(string surname = "", int year = 0);
+	explicit Human(std::string surname, int year);
 	virtual ~Human() = default;
 
-	string get_surname() const;
+	std::string get_surname() const;
 	int get_year() const;
 
-	void set_surname(string new_surname);
+	void set_surname(std::string new_surname);
 	void set_year(int new_year);
 
 	virtual void print() const;
 
-	friend ostream& operator<<(ostream& stream_obj, const Human& human_obj);
-	friend istream& operator>>(istream& stream_obj, Human& human_obj);
+	friend std::ostream& operator<<(std::ostream& stream_obj, const Human& human_obj);
+	friend std::istream& operator>>(std::istream& stream_obj, Human& human_obj);
 };
 
 //1 вар

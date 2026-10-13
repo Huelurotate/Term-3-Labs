@@ -1,10 +1,10 @@
 #include "human.h"
 
-Human::Human(string surname = "", int year = 0)
+Human::Human(std::string surname = "", int year = 0)
 	: surname(surname), year(year)
 {}
 
-string Human::get_surname() const
+std::string Human::get_surname() const
 {
 	return this->surname;
 }
@@ -14,7 +14,7 @@ int Human::get_year() const
 	return this->year;
 }
 
-void Human::set_surname(string new_surname)
+void Human::set_surname(std::string new_surname)
 {
 	this->surname = new_surname;
 }
@@ -26,19 +26,19 @@ void Human::set_year(int new_year)
 
 void Human::print() const
 {
-	cout << "Surname: " << this->get_surname();
-	cout << "Surname: " << this->get_year();
+	std::cout << "Surname: " << this->get_surname();
+	std::cout << "Surname: " << this->get_year();
 }
 
-ostream& operator<<(ostream& stream_obj, const Human& human_obj)
+std::ostream& operator<<(std::ostream& stream_obj, const Human& human_obj)
 {
 	human_obj.print();
 	return stream_obj;
 }
 
-istream& operator>>(istream& stream_obj, Human& human_obj)
+std::istream& operator>>(std::istream& stream_obj, Human& human_obj)
 {
-	string new_surname;
+	std::string new_surname;
 	int new_year;
 
 	stream_obj >> new_year;

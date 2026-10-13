@@ -13,13 +13,13 @@ String::String(const char* str)
 {
 	this->len = strlen(str);
 	this->str = new char[this->len + 1];
-	strcpy(this->str, str);
+	strcpy_s(this->str, this->len + 1, str);
 }
 
 // Коструктор копирования
 String::String(const String& other) : String(other.len)
 {
-	strcpy(this->str, other.str);
+	strcpy_s(this->str, this->len + 1, other.str);
 }
 
 // Деструктор
@@ -35,9 +35,9 @@ String& String::operator=(const String& other)
 
 	delete[] this->str;
 	this->str = new char[other.len + 1];
-
-	strcpy(this->str, other.str);
 	this->len = other.len;
+
+	strcpy_s(this->str, this->len + 1, other.str);
 	
 	return *this;
 }
@@ -75,8 +75,8 @@ String String::operator+(const String& other) const
 {
 	String result_string = String(this->len + other.len);
 
-	strcpy(result_string.str, this->str);
-	strcat(result_string.str, other.str);
+	strcpy_s(result_string.str, result_string.len + 1, this->str);
+	strcat_s(result_string.str, result_string.len + 1, other.str);
 
 	return result_string;
 }
@@ -223,7 +223,7 @@ istream& operator>>(istream& input_stream, String& str_object)
 		delete[] str_object.str;
 		str_object.len = strlen(buffer);
 		str_object.str = new char[str_object.len + 1];
-		strcpy(str_object.str, buffer);
+		strcpy_s(str_object.str, str_object.len + 1, buffer);
 	}
 
 	return input_stream;
