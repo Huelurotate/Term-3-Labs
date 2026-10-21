@@ -41,7 +41,8 @@ void Tourist::print() const
 {
 	Human::print();
 
-	std::cout << std::left << "|Passport number:" \
+	std::cout << std::left 
+			  << std::setw(20) << "|Passport number:" \
 			  << std::setw(15) << "|Home country:" \
 			  << std::setw(15) << "|Destination";
 }

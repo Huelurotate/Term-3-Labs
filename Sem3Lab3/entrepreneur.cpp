@@ -27,9 +27,25 @@ void Entrepreneur::set_sum(int index, int new_sum)
 	this->tr_data_arr[index].sum = new_sum;
 }
 
+void Entrepreneur::print() const
+{
+	Human::print();
+
+	std::cout << std::left << "|Date:" \
+		<< std::setw(8) << "|Sum:";
+}
+
 std::ostream& operator<<(std::ostream& stream_obj, const Entrepreneur& entr_obj)
 {
 	entr_obj.print();
+
+	std::cout << std::endl;
+	std::cout << std::left \
+		<< std::setw(15) << entr_obj.get_surname() \
+		<< std::setw(8) << entr_obj.get_year() \
+		<< std::setw(12) << "|Date:" \
+		<< std::setw(15) << "|Home country:";
+
 	return stream_obj;
 }
 

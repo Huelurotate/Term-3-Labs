@@ -37,8 +37,8 @@ void Human::print() const
 std::ostream& operator<<(std::ostream& stream_obj, const Human& human_obj)
 {
 	human_obj.print();
-	std::cout << std::endl;
-	std::cout << std::left \
+	stream_obj << std::endl;
+	stream_obj << std::left \
 			  << std::setw(15) << human_obj.get_surname() \
 			  << std::setw(8) << human_obj.get_year();
 	return stream_obj;
