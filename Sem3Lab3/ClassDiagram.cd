@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Human">
+    <Position X="4.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQEAAAAAAAAAAAAAAAEAAAAAABAEAAAAAAAAAQgAAA=</HashCode>
+      <FileName>human.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entrepreneur">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Entrepreneur::TransactionData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>entrepreneur.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <InheritanceLine Type="Human" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.188" Y="4.344" />
+        <Point X="5.188" Y="5.812" />
+        <Point X="4" Y="5.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAAjgAAAEAAAAAAAAAAAAAAACAAAYACAAAAAAAAg=</HashCode>
+      <FileName>entrepreneur.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tourist">
+    <Position X="7" Y="4" Width="1.5" />
+    <NestedTypes>
+      <Struct Name="Tourist::MigrationData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>tourist.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <InheritanceLine Type="Human" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="5.875" Y="4.344" />
+        <Point X="5.875" Y="5.812" />
+        <Point X="7" Y="5.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAAQAgAAQCAABAAAAAAAQAAAAAAwERAAAAAAAABAA=</HashCode>
+      <FileName>tourist.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Businessman">
+    <Position X="4.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABABIEAAAgAAAAAAAAAAEAAABAAgAAAAAAAAAAA=</HashCode>
+      <FileName>businessman.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

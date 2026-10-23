@@ -1,11 +1,7 @@
 #include "human.h"
 
 Human::Human(std::string surname, int year)
-	: surname(surname), year(year)
-{}
-
-Human::Human()
-{}
+	: surname(surname), year(year) {}
 
 std::string Human::get_surname() const
 {
@@ -29,18 +25,18 @@ void Human::set_year(int new_year)
 
 void Human::print() const
 {
-	std::cout << std::left \
-			  << std::setw(15) << "|Surname:" \
-			  << std::setw(8) << "|Year:";
+	std::cout << std::left;
+	std::cout << "|" << std::setw(15) << "Surname:" \
+			  << "|" << std::setw(6) << "Year:";
 }
 
 std::ostream& operator<<(std::ostream& stream_obj, const Human& human_obj)
 {
 	human_obj.print();
 	stream_obj << std::endl;
-	stream_obj << std::left \
-			  << std::setw(15) << human_obj.get_surname() \
-			  << std::setw(8) << human_obj.get_year();
+	stream_obj << std::left;
+	stream_obj << "|" << std::setw(15) << human_obj.get_surname() \
+			   << "|" << std::setw(6) << human_obj.get_year();
 	return stream_obj;
 }
 
@@ -50,7 +46,7 @@ std::istream& operator>>(std::istream& stream_obj, Human& human_obj)
 	int new_year;
 
 	std::cout << "Enter surname: ";
-	getline(stream_obj, new_surname);
+	getline(stream_obj >> std::ws, new_surname);
 
 	std::cout << "Enter year: ";
 	stream_obj >> new_year;

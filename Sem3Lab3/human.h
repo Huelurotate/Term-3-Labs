@@ -4,6 +4,7 @@
 #include <string>
 #include <iomanip>
 
+using namespace std;
 
 class Human
 {
@@ -12,11 +13,10 @@ private:
 	int year;
 
 protected:
-	static constexpr int MAX_ARR_SIZE = 100;
+	static constexpr int MAX_ARR_SIZE = 10;
 
 public:
-	explicit Human(std::string surname, int year);
-	explicit Human();
+	explicit Human(std::string surname = "", int year = 0);
 	virtual ~Human() = default;
 
 	std::string get_surname() const;
