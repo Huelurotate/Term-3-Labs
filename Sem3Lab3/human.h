@@ -26,24 +26,24 @@ using namespace std;
 class Human
 {
 private:
-	std::string surname;
+	string surname;
 	int year;
 
 protected:
 	static constexpr int MAX_ARR_SIZE = 10;
 
 public:
-	explicit Human(std::string surname = "", int year = 0);
+	explicit Human(string surname = "", int year = 0);
 	virtual ~Human() = default;
 
-	std::string get_surname() const;
+	string get_surname() const;
 	int get_year() const;
 
-	void set_surname(std::string new_surname);
+	void set_surname(string new_surname);
 	void set_year(int new_year);
 
 	virtual void print() const;
 
-	friend std::ostream& operator<<(std::ostream& stream_obj, const Human& human_obj);
-	friend std::istream& operator>>(std::istream& stream_obj, Human& human_obj);
+	friend ostream& operator<<(ostream& stream_obj, const Human& human_obj);
+	friend istream& operator>>(istream& stream_obj, Human& human_obj);
 };
