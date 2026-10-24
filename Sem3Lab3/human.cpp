@@ -25,6 +25,7 @@ void Human::set_year(int new_year)
 
 void Human::print() const
 {
+	std::cout << std::endl;
 	std::cout << std::left;
 	std::cout << "|" << std::setw(15) << "Surname:" \
 			  << "|" << std::setw(6) << "Year:";
@@ -32,11 +33,10 @@ void Human::print() const
 
 std::ostream& operator<<(std::ostream& stream_obj, const Human& human_obj)
 {
-	human_obj.print();
 	stream_obj << std::endl;
 	stream_obj << std::left;
 	stream_obj << "|" << std::setw(15) << human_obj.get_surname() \
-			   << "|" << std::setw(6) << human_obj.get_year();
+			   << "|" << std::setw(6) << human_obj.get_year() << std::endl;
 	return stream_obj;
 }
 

@@ -62,7 +62,6 @@ void Tourist::print() const
 
 std::ostream& operator<<(std::ostream& stream_obj, const Tourist& tourist_obj)
 {
-	tourist_obj.print();
 	stream_obj << std::endl;
 	stream_obj << std::left;
 	for(int i = 0; i < tourist_obj.get_mig_data_count(); i++)
@@ -71,7 +70,7 @@ std::ostream& operator<<(std::ostream& stream_obj, const Tourist& tourist_obj)
 			<< "|" << std::setw(8) << (i == 0 ? std::to_string(tourist_obj.get_year()) : "") \
 			<< "|" << std::setw(18) << (i == 0 ? std::to_string(tourist_obj.get_pass_num()) : "") \
 			<< "|" << std::setw(15) << tourist_obj.get_home_country(i) \
-			<< "|" << std::setw(15) << tourist_obj.get_destination(i);
+			<< "|" << std::setw(15) << tourist_obj.get_destination(i) << std::endl;
 	}
 
 	return stream_obj;

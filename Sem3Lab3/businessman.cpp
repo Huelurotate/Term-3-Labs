@@ -43,7 +43,6 @@ void Businessman::print() const
 
 std::ostream& operator<<(std::ostream& stream_obj, const Businessman& bm_obj)
 {
-	bm_obj.print();
 	stream_obj << std::endl;
 	stream_obj << std::left;
 	int rows = std::max({1, bm_obj.get_adr_arr_count(),
@@ -59,7 +58,7 @@ std::ostream& operator<<(std::ostream& stream_obj, const Businessman& bm_obj)
 			<< "|" << std::setw(18) << (i == 0 ? std::to_string(bm_obj.get_pass_num()) : "") \
 			<< "|" << std::setw(15) << bm_obj.get_home_country(i) \
 			<< "|" << std::setw(15) << bm_obj.get_destination(i) \
-			<< "|" << std::setw(10) << bm_obj.get_address(i);
+			<< "|" << std::setw(10) << bm_obj.get_address(i) << std::endl;
 	}
 
 	return stream_obj;

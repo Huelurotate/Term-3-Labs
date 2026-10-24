@@ -46,13 +46,11 @@ void Entrepreneur::print() const
 	Human::print();
 	std::cout << std::left;
 	std::cout << "|" << std::setw(12) << "Date:" \
-			  << "|" << std::setw(8) << "Sum:";
+		<< "|" << std::setw(8) << "Sum:";
 }
 
 std::ostream& operator<<(std::ostream& stream_obj, const Entrepreneur& entr_obj)
 {
-	entr_obj.print();
-
 	stream_obj << std::endl;
 	stream_obj << std::left;
 	for (int i = 0; i < entr_obj.get_tr_data_count(); i++)
@@ -60,7 +58,7 @@ std::ostream& operator<<(std::ostream& stream_obj, const Entrepreneur& entr_obj)
 		stream_obj << "|" << std::setw(15) << (i == 0 ? entr_obj.get_surname() : "") \
 				   << "|" << std::setw(8) << (i == 0 ? std::to_string(entr_obj.get_year()) : "")\
 				   << "|" << std::setw(12) << entr_obj.get_date(i) \
-				   << "|" << std::setw(8) << entr_obj.get_sum(i);
+				   << "|" << std::setw(8) << entr_obj.get_sum(i) << std::endl;
 	}
 
 	return stream_obj;
