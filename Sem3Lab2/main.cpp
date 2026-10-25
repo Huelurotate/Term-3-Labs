@@ -41,6 +41,11 @@ int main()
 
 	cout << "() and []:" << endl;
 	cout << "C[5]: " << C[5] << endl;
+
+	cout << "Sdelaem C[5] = '!'" << endl;
+	C[5] = '!';
+	cout << "C[5]: " << C[5] << endl;
+
 	cout << "C(3, 5): " << C(3, 5) << endl;
 	cout << "(++C)[2]: " << (++C)[2] << endl;
 

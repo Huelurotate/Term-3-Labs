@@ -237,11 +237,10 @@ ostream& operator<<(ostream& output_stream, const String& str_object)
 }
 
 // Перегрузка оператора []
-char String::operator[](int index)
+char& String::operator[](int index)
 {
 	if (index >= 0 && index < this->len)
 		return this->str[index];
-	return '\0';
 }
 
 // Перегрузка оператора ()

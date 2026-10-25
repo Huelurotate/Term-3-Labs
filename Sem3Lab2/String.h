@@ -57,6 +57,6 @@ public:
 	friend ostream& operator<<(ostream& output_stream, const String& str_object);
 
 	// Перегрузка операторов [] и ()
-	char operator[](int index);
+	char& operator[](int index);
 	String operator()(int start, int end) const;
 };

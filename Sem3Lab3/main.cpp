@@ -7,12 +7,15 @@
 
 int main()
 {
+	// Объявляем массив объектов Human и переменную кол-ва объектов
 	Human* obj_array[100];
 	int arr_count = 0;
 
+	// Главный цикл программы
 	bool is_running = true;
 	while (is_running)
 	{
+		// Меню
 		cout << "\n         Menu" << endl;
 		cout << "1. Add a Human object;" << endl;
 		cout << "2. Add an Entrepreneur object;" << endl;
@@ -33,6 +36,7 @@ int main()
 
 		switch (choice)
 		{
+			// Создаём(динамически) объект выбранного класса, выводим его(case 1-4)
 			case 1:
 			{
 				Human* new_human = new Human;
@@ -73,6 +77,7 @@ int main()
 				cout << *new_bm;
 				break;
 			}
+			// Вывод всех значений
 			case 5:
 			{
 				if (arr_count == 0)
@@ -81,6 +86,7 @@ int main()
 					break;
 				}
 
+				// массив типов(классов)
 				const type_info* types[4] = { &typeid(Human), &typeid(Entrepreneur),
 												   &typeid(Tourist), &typeid(Businessman) };
 
@@ -93,6 +99,7 @@ int main()
 						if (typeid(*obj_array[i]) != *types[t])
 							continue;
 
+						// Для каждого типа объекта шапка один раз выводится
 						if (!header_printed)
 						{
 							cout << endl;
@@ -101,6 +108,7 @@ int main()
 							header_printed = true;
 						}
 
+						// Выводим соответствующий объект
 						switch (t)
 						{
 							case 0: cout << *obj_array[i]; break;
@@ -118,6 +126,7 @@ int main()
 		}
 	}
 
+	// Освобождаем память
 	for (int i = 0; i < arr_count; i++)
 		delete obj_array[i];
 
