@@ -6,7 +6,8 @@ Businessman::Businessman(string surname, int year,
 		string dest, string address, int arr_count) :
 		Human(surname, year),
 		Entrepreneur(surname, year, date, sum, arr_count),
-		Tourist(surname, year, pass_num, h_c, dest, arr_count)
+		Tourist(surname, year, pass_num, h_c, dest, arr_count),
+		adr_arr_count(arr_count)
 {
 	this->addresses_arr[0] = address;
 }
@@ -40,9 +41,10 @@ void Businessman::print() const
 {
 	Entrepreneur::print();
 	cout << left;
-	cout << "|" << setw(15) << "Home country:" \
+	cout << "|" << setw(18) << "Passport number:" \
+		 << "|" << setw(15) << "Home country:" \
 		 << "|" << setw(15) << "Destination:" \
-		 << "|" << setw(10) << "Address:";
+		 << "|" << setw(25) << "Address:";
 }
 
 // Перегрузка <<
@@ -59,14 +61,19 @@ ostream& operator<<(ostream& stream_obj, const Businessman& bm_obj)
 	// Вывод, при этом элементы массива выводятся на разных строках
 	for (int i = 0; i < rows; i++)
 	{
+		// Проверка есть ли элементы по заданному индексу i
+		bool has_tr = i < bm_obj.get_tr_data_count();
+		bool has_mig = i < bm_obj.get_mig_data_count();
+		bool has_adr = i < bm_obj.get_adr_arr_count();
+
 		stream_obj << "|" << setw(15) << (i == 0 ? bm_obj.get_surname() : "") \
 			<< "|" << setw(6) << (i == 0 ? to_string(bm_obj.get_year()) : "") \
-			<< "|" << setw(12) << bm_obj.get_date(i) \
-			<< "|" << setw(8) << bm_obj.get_sum(i) \
+			<< "|" << setw(12) << (has_tr ? bm_obj.get_date(i) : "") \
+			<< "|" << setw(8) << (has_tr ? to_string(bm_obj.get_sum(i)) : "") \
 			<< "|" << setw(18) << (i == 0 ? to_string(bm_obj.get_pass_num()) : "") \
-			<< "|" << setw(15) << bm_obj.get_home_country(i) \
-			<< "|" << setw(15) << bm_obj.get_destination(i) \
-			<< "|" << setw(10) << bm_obj.get_address(i) << endl;
+			<< "|" << setw(15) << (has_mig ? bm_obj.get_home_country(i) : "") \
+			<< "|" << setw(15) << (has_mig ? bm_obj.get_destination(i) : "") \
+			<< "|" << setw(20) << (has_adr ? bm_obj.get_address(i) : "") << endl;
 	}
 
 	return stream_obj;
@@ -108,7 +115,7 @@ istream& operator>>(istream& stream_obj, Businessman& bm_obj)
 	for (int i = 0; (i < bm_arr_len) && i < bm_obj.MAX_ARR_SIZE; i++)
 	{
 		cout << "Enter address " << i + 1 << ": ";;
-		stream_obj >> new_address;
+		getline(stream_obj >> ws, new_address);
 		bm_obj.set_address(i, new_address);
 	}
 

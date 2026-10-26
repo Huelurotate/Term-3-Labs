@@ -64,10 +64,13 @@ ostream& operator<<(ostream& stream_obj, const Entrepreneur& entr_obj)
 	// Вывод, при этом элементы массива выводятся на разных строках
 	for (int i = 0; i < entr_obj.get_tr_data_count(); i++)
 	{
+		// Проверка есть ли элементы по заданному индексу i
+		bool has_tr = i < entr_obj.get_tr_data_count();
+
 		stream_obj << "|" << setw(15) << (i == 0 ? entr_obj.get_surname() : "") \
-				   << "|" << setw(6) << (i == 0 ? to_string(entr_obj.get_year()) : "")\
-				   << "|" << setw(12) << entr_obj.get_date(i) \
-				   << "|" << setw(8) << entr_obj.get_sum(i) << endl;
+			<< "|" << setw(6) << (i == 0 ? to_string(entr_obj.get_year()) : "")\
+			<< "|" << setw(12) << (has_tr ? entr_obj.get_date(i) : "") \
+			<< "|" << setw(8) << (has_tr ? to_string(entr_obj.get_sum(i)) : "") << endl;
 	}
 
 	return stream_obj;

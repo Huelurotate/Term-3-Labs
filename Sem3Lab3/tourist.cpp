@@ -78,11 +78,14 @@ ostream& operator<<(ostream& stream_obj, const Tourist& tourist_obj)
 	// Вывод, при этом элементы массива выводятся на разных строках
 	for(int i = 0; i < tourist_obj.get_mig_data_count(); i++)
 	{
+		// Проверка есть ли элементы по заданному индексу i
+		bool has_mig = i < tourist_obj.get_mig_data_count();
+
 		stream_obj << "|" << setw(15) << (i == 0 ? tourist_obj.get_surname() : "") \
 			<< "|" << setw(6) << (i == 0 ? to_string(tourist_obj.get_year()) : "") \
 			<< "|" << setw(18) << (i == 0 ? to_string(tourist_obj.get_pass_num()) : "") \
-			<< "|" << setw(15) << tourist_obj.get_home_country(i) \
-			<< "|" << setw(15) << tourist_obj.get_destination(i) << endl;
+			<< "|" << setw(15) << (has_mig ? tourist_obj.get_home_country(i) : "") \
+			<< "|" << setw(15) << (has_mig ? tourist_obj.get_destination(i) : "") << endl;
 	}
 
 	return stream_obj;

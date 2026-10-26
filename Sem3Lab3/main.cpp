@@ -104,7 +104,6 @@ int main()
 						{
 							cout << endl;
 							obj_array[i]->print();
-							cout << endl;
 							header_printed = true;
 						}
 
