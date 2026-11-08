@@ -241,7 +241,7 @@ void Ring<T>::print() const
 		return;
 	}
 
-	cout << "Ring, size = " << size << " (from head to tail, then head again)";
+	cout << "Ring, size = " << size;
 
 	// Шапка таблицы один раз
 	head->get_value().print();
