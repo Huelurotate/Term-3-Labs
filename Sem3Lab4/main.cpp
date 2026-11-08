@@ -5,6 +5,8 @@
 #include "tourist.h"
 #include "businessman.h"
 
+#include "ring.h"
+
 int main()
 {
 	// Объявляем массив объектов Human и переменную кол-ва объектов

@@ -15,31 +15,32 @@ int main()
 	cout << "Enter string C: ";
 	cin >> C;
 
-	cout << "SLOZHENIE, \"FKSIS \" + A + B + \" BSUIR\":" << endl;
+	cout << "\nSLOZHENIE, \"FKSIS \" + A + B + \" BSUIR\":" << endl;
 	cout << ("FKSIS " + A + B + " BSUIR") << endl;
 	// cout << (A + B) << endl;
 
-	cout << "VYCHITANIE, \"PRIVET\" - A - B - \"POKA\":" << endl;
+	cout << "\nVYCHITANIE, \"PRIVET\" - A - B - \"POKA\":" << endl;
 	cout << ("PRIVET" - A - B - "POKA") << endl;
 	// cout << (A - B) << endl;
 
-	cout << "C += A and C -= B:" << endl;
+	cout << "\nC += A and C -= B:" << endl;
 	C += A;
 	cout << C << endl;
 	C -= B;
 	cout << C << endl;
 
-	cout << "SRAVNENIYA:" << endl;
-	cout << "A == B: " << (A == B) << " A > B: " << (A > B) << " A >= B: ";
-	cout << (A >= B) << " A < B: " << (A < B) << " A <= B: " << (A <= B) << endl;
+	cout << "\nSRAVNENIYA:" << endl;
+	cout << "A == B: " << (A == B) << " | A > B: " << (A > B) << " | A >= B: ";
+	cout << (A >= B) << " | A < B: " << (A < B) << " | A <= B: " << (A <= B) << endl;
 
-	cout << "INCREMENT AND DECREMENT:" << endl;
+	cout << "\nINCREMENT AND DECREMENT:" << endl;
 	cout << "A: " << A << " ++A: " << ++A << " A++: " << A++ << endl;
 	cout << "B: " << B << " --B: " << --B << " B--: " << B-- << endl;
 	cout << "--(--A): " << --(--A) << endl;
 	cout << "++(++B): " << ++(++B) << endl;
 
-	cout << "() and []:" << endl;
+	cout << "\n() and []:" << endl;
+	cout << "C: " << C << endl;
 	cout << "C[5]: " << C[5] << endl;
 
 	cout << "Sdelaem C[5] = '!'" << endl;

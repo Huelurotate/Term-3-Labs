@@ -73,7 +73,7 @@ String& String::operator-=(const char* str_const)
 // Перегрузка оператора суммы (obj + obj)
 String String::operator+(const String& other) const
 {
-	String result_string = String(this->len + other.len);
+	String result_string(this->len + other.len);
 
 	strcpy_s(result_string.str, result_string.len + 1, this->str);
 	strcat_s(result_string.str, result_string.len + 1, other.str);
@@ -218,7 +218,7 @@ istream& operator>>(istream& input_stream, String& str_object)
 	char buffer[1024];
 	input_stream.getline(buffer, 1024);
 
-	if (buffer)
+	if (buffer[0] != '\0')
 	{
 		delete[] str_object.str;
 		str_object.len = strlen(buffer);

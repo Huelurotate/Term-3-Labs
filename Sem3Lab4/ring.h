@@ -15,6 +15,7 @@ private:
 
 public:
 	Ring(RingNode<T>* head = nullptr, RingNode<T>* tail = nullptr, int size = 0);
+	~Ring();
 
 	RingNode<T>* get_head() const;
 	RingNode<T>* get_tail() const;
@@ -39,6 +40,13 @@ template <typename T>
 Ring<T>::Ring(RingNode<T>* head, RingNode<T>* tail, int size) :
 	head(head), tail(tail), size(size)
 {}
+
+template <typename T>
+Ring<T>::~Ring()
+{
+	while (head != nullptr)
+		this->delete_element();
+}
 
 template <typename T>
 RingNode<T>* Ring<T>::get_head() const
