@@ -40,9 +40,10 @@ void Businessman::print() const
 {
 	Entrepreneur::print();
 	cout << left;
-	cout << "|" << setw(15) << "Home country:" \
-		<< "|" << setw(15) << "Destination:" \
-		<< "|" << setw(10) << "Address:";
+	cout << "|" << setw(18) << "Passport number:"
+		<< "|" << setw(15) << "Home country:"
+		<< "|" << setw(15) << "Destination:"
+		<< "|" << setw(20) << "Address:";
 }
 
 // Перегрузка <<

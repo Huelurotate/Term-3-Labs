@@ -7,7 +7,44 @@
 
 #include "ring.h"
 
+void lab3_menu();
+void lab4_menu();
+
+template <typename T>
+void ring_menu(Ring<T>& ring, const string& class_name);
+
 int main()
+{
+	bool is_running = true;
+	while (is_running)
+	{
+		cout << "\n       Main menu" << endl;
+		cout << "1. Lab 3 (Inheritance);" << endl;
+		cout << "2. Lab 4 (Templates, Ring);" << endl;
+		cout << "3. Exit." << endl;
+
+		int choice;
+		cout << "Your choice: ";
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1: 
+			lab3_menu(); 
+			break;
+		case 2: 
+			lab4_menu(); 
+			break;
+		case 3: 
+			is_running = false; 
+			break;
+		}
+	}
+
+	return 0;
+}
+
+void lab3_menu()
 {
 	// Объявляем массив объектов Human и переменную кол-ва объектов
 	Human* obj_array[100];
@@ -24,7 +61,7 @@ int main()
 		cout << "3. Add a Tourist object;" << endl;
 		cout << "4. Add a Businessman object;" << endl;
 		cout << "5. Print all objects;" << endl;
-		cout << "6. Exit." << endl;
+		cout << "6. Back." << endl;
 
 		int choice;
 		cout << "Your choice: ";
@@ -131,6 +168,135 @@ int main()
 	// Освобождаем память
 	for (int i = 0; i < arr_count; i++)
 		delete obj_array[i];
+}
 
-	return 0;
+void lab4_menu()
+{
+	Ring<Human> human_ring;
+	Ring<Entrepreneur> entr_ring;
+	Ring<Tourist> tourist_ring;
+	Ring<Businessman> bm_ring;
+
+	bool is_running = true;
+	while (is_running)
+	{
+		cout << "\n      Choose a Ring" << endl;
+		cout << "1. Ring<Human>;" << endl;
+		cout << "2. Ring<Entrepreneur>;" << endl;
+		cout << "3. Ring<Tourist>;" << endl;
+		cout << "4. Ring<Businessman>;" << endl;
+		cout << "5. Back." << endl;
+
+		int choice;
+		cout << "Your choice: ";
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1: 
+			ring_menu(human_ring, "Human"); 
+			break;
+		case 2: 
+			ring_menu(entr_ring, "Entrepreneur"); 
+			break;
+		case 3: 
+			ring_menu(tourist_ring, "Tourist"); 
+			break;
+		case 4: 
+			ring_menu(bm_ring, "Businessman"); 
+			break;
+		case 5: 
+			is_running = false; 
+			break;
+		}
+	}
+}
+
+template <typename T>
+void ring_menu(Ring<T>& ring, const string& class_name)
+{
+	bool is_running = true;
+	while (is_running)
+	{
+		cout << "\n         Ring<" << class_name << ">, elements: " << ring.get_size() << endl;
+		cout << "1. Add an element;" << endl;
+		cout << "2. Delete element;" << endl;
+		cout << "3. Print the ring;" << endl;
+		cout << "4. Find an element by surname;" << endl;
+		cout << "5. Find an element by year;" << endl;
+		cout << "6. Back." << endl;
+
+		int choice;
+		cout << "Your choice: ";
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			T new_obj;
+			cin >> new_obj;
+			ring.add_element(new_obj);
+
+			cout << "Element added." << endl;
+			break;
+		}
+		case 2:
+		{
+			if (ring.get_size() == 0)
+			{
+				cout << "Ring is empty." << endl;
+				break;
+			}
+
+			ring.delete_element();
+			cout << "Head element deleted." << endl;
+			break;
+		}
+		case 3:
+		{
+			ring.print();
+			break;
+		}
+		case 4:
+		{
+			string surname;
+			cout << "Enter surname: ";
+			getline(cin >> ws, surname);
+
+			RingNode<T>* found = ring.find_by_surname(surname);
+			if (found == nullptr)
+			{
+				cout << "Not found." << endl;
+				break;
+			}
+
+			found->get_value().print();
+			cout << endl;
+			cout << found->get_value();
+			break;
+		}
+		case 5:
+		{
+			int year;
+			cout << "Enter year: ";
+			cin >> year;
+
+			RingNode<T>* found = ring.find_by_year(year);
+			if (found == nullptr)
+			{
+				cout << "Not found." << endl;
+				break;
+			}
+
+			found->get_value().print();
+			cout << endl;
+			cout << found->get_value();
+			break;
+		}
+		case 6:
+			is_running = false;
+			break;
+		}
+	}
 }

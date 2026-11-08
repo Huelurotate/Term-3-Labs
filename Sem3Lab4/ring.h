@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 #include "ring_node.h"
 
 using namespace std;
@@ -14,31 +15,37 @@ private:
 	int size;
 
 public:
-	Ring(RingNode<T>* head = nullptr, RingNode<T>* tail = nullptr, int size = 0);
+	Ring();
 	~Ring();
 
+	// Геттеры
 	RingNode<T>* get_head() const;
 	RingNode<T>* get_tail() const;
 	int get_size() const;
 
+	// Сеттеры
 	void set_head(RingNode<T>* new_head);
 	void set_tail(RingNode<T>* new_tail);
 	void set_size(int new_size);
 	
+	// Добавить элемент
 	void add_element(T value); // или void add_front(T value);
 	// void add_rear(T value);
 
+	// Удалить элемент
 	void delete_element(); // или void delete_front();
 	// void delete_rear();
 
-	RingNode<T>* find_element(T value);
+	// Поиск по полям
+	RingNode<T>* find_by_surname(string surname) const;
+	RingNode<T>* find_by_year(int year) const;
 
-	void print();
+	void print() const;
 };
 
 template <typename T>
-Ring<T>::Ring(RingNode<T>* head, RingNode<T>* tail, int size) :
-	head(head), tail(tail), size(size)
+Ring<T>::Ring() :
+	head(nullptr), tail(nullptr), size(0)
 {}
 
 template <typename T>
@@ -151,6 +158,8 @@ void Ring<T>::delete_element()
 		this->set_tail(nullptr);
 
 		this->set_size(0);
+
+		return;
 	}
 
 	this->set_head(this->get_head()->get_next());
@@ -176,6 +185,8 @@ void Ring<T>::delete_element()
 //		this->set_tail(nullptr);
 //
 //		this->set_size(0);
+//
+//		return;
 //	}
 //
 //	this->set_rear(this->get_rear()->get_prev());
@@ -189,37 +200,56 @@ void Ring<T>::delete_element()
 //}
 
 template <typename T>
-RingNode<T>* Ring<T>::find_element(T value)
+RingNode<T>* Ring<T>::find_by_surname(string surname) const
 {
-	if (head == nullptr) return nullptr;
-
 	RingNode<T>* temp = this->get_head();
+
+	// Кольцо замкнуто, поэтому идём ровно size шагов (а не до nullptr)
 	for (int i = 0; i < this->get_size(); i++)
 	{
-		if (temp->get_value() == value)
+		if (temp->get_value().get_surname() == surname)
 			return temp;
-		else
-			temp = temp->get_next();
+
+		temp = temp->get_next();
 	}
 
 	return nullptr;
 }
 
 template <typename T>
-void Ring<T>::print()
+RingNode<T>* Ring<T>::find_by_year(int year) const
 {
-	if (head == nullptr) return;
-
 	RingNode<T>* temp = this->get_head();
 
-	cout << "(tail) <-> " << temp->get_value();
 	for (int i = 0; i < this->get_size(); i++)
 	{
-		if (temp->get_next() != nullptr)
-		{
-			temp = temp->get_next();
-			cout << " <-> " << temp->get_value();
-		}
+		if (temp->get_value().get_year() == year)
+			return temp;
+
+		temp = temp->get_next();
 	}
-	cout << " <-> (head)";
+
+	return nullptr;
+}
+
+template <typename T>
+void Ring<T>::print() const
+{
+	if (head == nullptr)
+	{
+		cout << "Ring is empty." << endl;
+		return;
+	}
+
+	cout << "Ring, size = " << size << " (from head to tail, then head again)";
+
+	// Шапка таблицы один раз
+	head->get_value().print();
+
+	RingNode<T>* temp = this->get_head();
+	for (int i = 0; i < this->get_size(); i++)
+	{
+		cout << temp->get_value();
+		temp = temp->get_next();
+	}
 }
